@@ -59,14 +59,13 @@ const NavBar = () => {
             ))}
           </div>
 
-          <div className="flex md:hidden">
-            <button 
-              onClick={toggleMobileMenu} 
-              className="text-white focus:outline-none"
-            >
-              <Menu size={24} />
-            </button>
-          </div>
+          <button 
+            onClick={toggleMobileMenu} 
+            className="text-white focus:outline-none md:hidden"
+            aria-label="Toggle mobile menu"
+          >
+            <Menu size={24} />
+          </button>
         </div>
       </nav>
 
@@ -83,6 +82,7 @@ const NavBar = () => {
               <button 
                 onClick={toggleMobileMenu} 
                 className="text-white focus:outline-none"
+                aria-label="Close mobile menu"
               >
                 <X size={24} />
               </button>
