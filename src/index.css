@@ -80,7 +80,7 @@
   }
 
   .website-card {
-    @apply bg-card rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-out;
+    @apply bg-card rounded-lg shadow-md overflow-hidden transition-all duration-500 ease-out;
     transform: perspective(1000px);
     backface-visibility: hidden;
     transform-style: preserve-3d;
@@ -88,7 +88,7 @@
 
   .website-card:hover {
     @apply shadow-xl;
-    transform: perspective(1000px) translateZ(20px) scale(1.03);
+    transform: perspective(1000px) translateZ(15px) scale(1.02);
     z-index: 10;
   }
 
@@ -116,18 +116,18 @@
   }
 
   .hover-lift {
-    transition: transform 0.3s ease-out;
+    transition: transform 0.4s ease-out;
   }
 
   .hover-lift:hover {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 
   .rotate-hover {
-    transition: transform 0.3s ease-out;
+    transition: transform 0.4s ease-out;
   }
 
   .rotate-hover:hover {
-    transform: rotateY(10deg);
+    transform: rotateY(8deg);
   }
 }

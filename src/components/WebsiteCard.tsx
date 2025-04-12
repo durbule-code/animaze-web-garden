@@ -43,8 +43,8 @@ const WebsiteCard: React.FC<WebsiteCardProps> = ({
     const centerY = rect.height / 2;
     
     // Calculate rotation with reduced intensity for smoother effect
-    const rotateX = ((y - centerY) / 10) * 0.8;
-    const rotateY = ((centerX - x) / 10) * 0.8;
+    const rotateX = ((y - centerY) / 15) * 0.7; // Reduced intensity
+    const rotateY = ((centerX - x) / 15) * 0.7; // Reduced intensity
     
     setRotateX(rotateX);
     setRotateY(rotateY);
@@ -52,13 +52,8 @@ const WebsiteCard: React.FC<WebsiteCardProps> = ({
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-    // Use a timeout to make the reset animation smoother
-    setTimeout(() => {
-      if (!isHovering) {
-        setRotateX(0);
-        setRotateY(0);
-      }
-    }, 100);
+    setRotateX(0);
+    setRotateY(0);
   };
 
   const toggleExpand = (e: React.MouseEvent) => {
@@ -117,10 +112,8 @@ const WebsiteCard: React.FC<WebsiteCardProps> = ({
       style={{
         transform: isExpanded 
           ? 'none' 
-          : `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(0)`,
-        transition: isHovering 
-          ? 'transform 0.1s ease-out' 
-          : 'transform 0.3s ease-out, box-shadow 0.3s ease-out',
+          : `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`,
+        transition: 'transform 0.3s ease-out, box-shadow 0.3s ease-out',
         zIndex: isExpanded ? 50 : isHovering ? 10 : 1,
       }}
     >
@@ -129,9 +122,9 @@ const WebsiteCard: React.FC<WebsiteCardProps> = ({
           <img 
             src={imageUrl} 
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           />
-          <div className={`absolute inset-0 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${isHovering ? 'opacity-100' : 'opacity-0'}`}></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-70"></div>
           
           <div className="absolute top-2 right-2 bg-primary/90 text-white text-xs px-2 py-1 rounded-full">
             {category}

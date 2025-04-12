@@ -40,23 +40,25 @@ const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    const moveX = (mouseX - centerX) / 25; // Reduced sensitivity
-    const moveY = (mouseY - centerY) / 25; // Reduced sensitivity
+    const moveX = (mouseX - centerX) / 50; // Further reduced sensitivity
+    const moveY = (mouseY - centerY) / 50; // Further reduced sensitivity
     
-    gridRef.current.style.transform = `perspective(1200px) rotateX(${-moveY * 0.5}deg) rotateY(${moveX * 0.5}deg) translateZ(10px)`;
+    // Apply smooth transition for the grid tilt effect
+    gridRef.current.style.transform = `perspective(1200px) rotateX(${-moveY * 0.3}deg) rotateY(${moveX * 0.3}deg) translateZ(5px)`;
   };
 
   const handleMouseLeave = () => {
     if (gridRef.current) {
       setIsInteracting(false);
+      // Apply smooth transition back to neutral position
       gridRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0)';
     }
   };
 
   const containerVariants = {
     closed: {
-      rotateX: 15,
-      scale: 0.95,
+      rotateX: 10,
+      scale: 0.97,
       opacity: 0
     },
     open: {
@@ -64,9 +66,9 @@ const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
       scale: 1,
       opacity: 1,
       transition: {
-        duration: 0.8,
-        ease: [0.23, 1, 0.32, 1],
-        staggerChildren: 0.1
+        duration: 0.9,
+        ease: [0.25, 1, 0.35, 1],
+        staggerChildren: 0.08
       }
     }
   };
@@ -76,11 +78,11 @@ const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
       className="perspective-container w-full px-4 md:px-12 mx-auto py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.6 }}
     >
       <motion.div
         ref={gridRef}
-        className={`preserve-3d grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ${isInteracting ? '' : 'transition-transform duration-300 ease-out'}`}
+        className="preserve-3d grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 transition-transform duration-500 ease-out"
         variants={containerVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
