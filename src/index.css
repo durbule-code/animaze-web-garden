@@ -71,27 +71,32 @@
   .perspective-container {
     perspective: 2000px;
     perspective-origin: center;
+    transform-style: preserve-3d;
   }
 
   .preserve-3d {
     transform-style: preserve-3d;
+    backface-visibility: hidden;
   }
 
   .website-card {
-    @apply bg-card rounded-lg shadow-lg overflow-hidden transition-all duration-500 ease-out;
+    @apply bg-card rounded-lg shadow-md overflow-hidden transition-all duration-300 ease-out;
     transform: perspective(1000px);
     backface-visibility: hidden;
+    transform-style: preserve-3d;
   }
 
   .website-card:hover {
     @apply shadow-xl;
-    transform: perspective(1000px) translateZ(30px) scale(1.05);
+    transform: perspective(1000px) translateZ(20px) scale(1.03);
     z-index: 10;
   }
 
   .website-card-expanded {
     @apply fixed top-0 left-0 right-0 bottom-0 w-full h-full z-50 m-0 rounded-none;
     transform: none !important;
+    box-shadow: none !important;
+    background-color: rgba(0, 0, 0, 0.9);
   }
 
   .glass-effect {
@@ -107,6 +112,7 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-gap: 2rem;
     perspective: 1000px;
+    transform-style: preserve-3d;
   }
 
   .hover-lift {

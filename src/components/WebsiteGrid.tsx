@@ -17,21 +17,21 @@ interface WebsiteGridProps {
 
 const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
   const gridRef = useRef<HTMLDivElement>(null);
-  const [perspective, setPerspective] = useState(1000);
-  const [rotateX, setRotateX] = useState(20);
   const [isOpen, setIsOpen] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpen(true);
-      setRotateX(0);
     }, 500);
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!gridRef.current) return;
+    if (!gridRef.current || !isOpen) return;
+    
+    setIsInteracting(true);
     
     const rect = gridRef.current.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
@@ -40,22 +40,23 @@ const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    const moveX = (mouseX - centerX) / 50;
-    const moveY = (mouseY - centerY) / 50;
+    const moveX = (mouseX - centerX) / 25; // Reduced sensitivity
+    const moveY = (mouseY - centerY) / 25; // Reduced sensitivity
     
-    gridRef.current.style.transform = `perspective(${perspective}px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
+    gridRef.current.style.transform = `perspective(1200px) rotateX(${-moveY * 0.5}deg) rotateY(${moveX * 0.5}deg) translateZ(10px)`;
   };
 
   const handleMouseLeave = () => {
     if (gridRef.current) {
-      gridRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      setIsInteracting(false);
+      gridRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0)';
     }
   };
 
   const containerVariants = {
     closed: {
-      rotateX: 20,
-      scale: 0.9,
+      rotateX: 15,
+      scale: 0.95,
       opacity: 0
     },
     open: {
@@ -79,7 +80,7 @@ const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
     >
       <motion.div
         ref={gridRef}
-        className="preserve-3d grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        className={`preserve-3d grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 ${isInteracting ? '' : 'transition-transform duration-300 ease-out'}`}
         variants={containerVariants}
         initial="closed"
         animate={isOpen ? "open" : "closed"}
@@ -87,7 +88,8 @@ const WebsiteGrid = ({ websites }: WebsiteGridProps) => {
         onMouseLeave={handleMouseLeave}
         style={{ 
           transformStyle: 'preserve-3d',
-          transformOrigin: 'center center'
+          transformOrigin: 'center center',
+          willChange: 'transform'
         }}
       >
         {websites.map((website, index) => (
