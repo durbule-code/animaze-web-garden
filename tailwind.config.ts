@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -84,11 +85,51 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-slow': {
+					'0%, 100%': { opacity: '1' },
+					'50%': { opacity: '0.7' }
+				},
+				'rotate-3d': {
+					'0%': { transform: 'perspective(1200px) rotateY(0deg)' },
+					'100%': { transform: 'perspective(1200px) rotateY(360deg)' }
+				},
+				'slide-up': {
+					'0%': { transform: 'translateY(100%)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'slide-down': {
+					'0%': { transform: 'translateY(-100%)', opacity: '0' },
+					'100%': { transform: 'translateY(0)', opacity: '1' }
+				},
+				'zoom-in': {
+					'0%': { transform: 'scale(0.95)', opacity: '0' },
+					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				'zoom-out': {
+					'0%': { transform: 'scale(1.05)', opacity: '0' },
+					'100%': { transform: 'scale(1)', opacity: '1' }
+				},
+				'parallax-slow': {
+					'0%': { transform: 'translateZ(-10px)' },
+					'100%': { transform: 'translateZ(0)' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+				'rotate-3d': 'rotate-3d 30s linear infinite',
+				'slide-up': 'slide-up 0.5s ease-out',
+				'slide-down': 'slide-down 0.5s ease-out',
+				'zoom-in': 'zoom-in 0.5s ease-out',
+				'zoom-out': 'zoom-out 0.5s ease-out',
+				'parallax-slow': 'parallax-slow 0.5s ease-out'
 			}
 		}
 	},
